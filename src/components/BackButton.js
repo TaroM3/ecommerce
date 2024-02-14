@@ -5,9 +5,7 @@ import { AntDesign } from '@expo/vector-icons';
 const BackButton = ({ onPress }) => {
   return (
     <Pressable onPress={onPress} style={{ width: '20%' }}>
-      <Text>
-        <AntDesign name='left' size={30} color={colors.lightBlack} />
-      </Text>
+      <AntDesign name='left' size={30} color={colors.lightBlack} />
     </Pressable>
   );
 };
