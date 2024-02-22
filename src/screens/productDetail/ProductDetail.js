@@ -6,7 +6,8 @@ import products from '../../utils/data/products.json';
 import colors from '../../utils/global/colors';
 import Header from '../../components/Header';
 
-export const ProductDetail = ({ productId, clearProductId, portrait }) => {
+export const ProductDetail = ({ route }) => {
+  const { productId } = route.params;
   const [product, setProduct] = useState({});
 
   useEffect(() => {
@@ -16,28 +17,17 @@ export const ProductDetail = ({ productId, clearProductId, portrait }) => {
 
   return (
     <View style={styles.container}>
-      <Header title='Product Details' onPress={clearProductId} />
-      <View
-        style={[
-          styles.content,
-          !portrait && { flexDirection: 'row', gap: 10, padding: 20 },
-        ]}
-      >
+      <View style={styles.content}>
         <Image
-          style={[styles.image, !portrait && { width: '40%', height: 200 }]}
-          source={{ uri: product.thumbnail }}
+          style={styles.image}
+          source={{ uri: product?.images ? product.images[0] : null }}
           resizeMode='cover'
         />
-        <View style={[styles.containerText, !portrait && { width: '30%' }]}>
+        <View style={styles.containerText}>
           <Text style={styles.title}>{product.title}</Text>
-          <Text style={styles.description}>{product.description}</Text>
+          <Text>{product.description}</Text>
         </View>
-        <View
-          style={[
-            styles.containerPrice,
-            !portrait && { width: '20%', flexDirection: 'column' },
-          ]}
-        >
+        <View style={styles.containerPrice}>
           <Text style={styles.price}>$ {product.price}</Text>
           <Pressable style={styles.buyNow}>
             <Text style={styles.buyNowText}>Buy Now</Text>
@@ -65,7 +55,7 @@ const styles = StyleSheet.create({
   },
   containerText: {
     gap: 25,
-    paddingHorizontal: 5,
+    paddingHorizontal: 7,
     paddingVertical: 25,
   },
 
@@ -79,8 +69,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 25,
     fontWeight: 'bold',
-    paddingHorizontal: 7,
-    color: colors.light,
+
+    color: colors.lightBlack,
   },
   description: {
     color: colors.light,
@@ -90,17 +80,17 @@ const styles = StyleSheet.create({
   },
   price: {
     fontSize: 30,
-    color: colors.light,
+    fontWeight: 'bold',
+    color: colors.lightBlack,
   },
   buyNow: {
-    backgroundColor: colors.light,
+    backgroundColor: colors.lightBlack,
     paddingVertical: 5,
     paddingHorizontal: 10,
     borderRadius: 7,
   },
   buyNowText: {
-    backgroundColor: colors.light,
-    color: colors.lightBlack,
+    color: colors.light,
     padding: 7,
     fontWeight: 'bold',
     fontSize: 20,

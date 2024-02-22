@@ -1,12 +1,14 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import { StyleSheet, Text, Image, Pressable } from 'react-native';
 import React from 'react';
 import colors from '../utils/global/colors';
-import fontCollection, { fonts } from '../utils/global/fonts';
+import { fonts } from '../utils/global/fonts';
 
-const ProductByCategory = ({ item, selectedProductId }) => {
+const ProductByCategory = ({ item, navigation }) => {
   return (
     <Pressable
-      onPress={() => selectedProductId(item.id)}
+      onPress={() =>
+        navigation.navigate("ProductDetail", { productId: item.id })
+      }
       style={styles.container}
     >
       <Text style={styles.text}>

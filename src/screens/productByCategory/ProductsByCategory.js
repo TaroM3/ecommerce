@@ -1,16 +1,11 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { useEffect, useState } from 'react';
-import Header from '../../components/Header';
 import Search from '../../components/Search';
 import ProductByCategory from '../../components/ProductByCategory';
 import products from '../../utils/data/products.json';
 
-export const ProductsByCategory = ({
-  categorySelected,
-  selectedProductId,
-  clearCategorySelected,
-  clearProductId,
-}) => {
+export const ProductsByCategory = ({ navigation, route }) => {
+  const { categorySelected } = route.params;
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [keyword, setKeyword] = useState('');
 
@@ -31,19 +26,14 @@ export const ProductsByCategory = ({
         })
       );
   }, [categorySelected, keyword]);
-
   return (
     <>
-      <Header title={categorySelected} onPress={clearCategorySelected} />
       <Search handlerKeyword={handlerKeyword} />
       <FlatList
         data={productsFiltered}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <ProductByCategory
-            selectedProductId={selectedProductId}
-            item={item}
-          />
+          <ProductByCategory navigation={navigation} item={item} />
         )}
       />
     </>

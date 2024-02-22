@@ -1,14 +1,24 @@
-import { View, Text, StyleSheet, Platform, StatusBar } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  StatusBar,
+  Pressable,
+} from 'react-native';
 import colors from '../utils/global/colors';
-import BackButton from './BackButton';
 
-const Header = ({ title = 'Ecommerce', onPress = null }) => {
+import { AntDesign } from '@expo/vector-icons';
+
+const Header = ({ title = 'Ecommerce', navigation }) => {
   return (
     <View style={styles.container}>
-      {onPress && <BackButton onPress={onPress} />}
-      <View style={styles.titleContainer}>
-        <Text style={styles.text}>{title}</Text>
-      </View>
+      {navigation.canGoBack() && (
+        <Pressable style={styles.goBack} onPress={() => navigation.goBack()}>
+          <AntDesign name='arrowleft' size={25} color='black' />
+        </Pressable>
+      )}
+      <Text style={styles.text}>{title}</Text>
     </View>
   );
 };
@@ -22,9 +32,10 @@ const styles = StyleSheet.create({
     height: 90,
     paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
     width: '100%',
-    paddingHorizontal: 30,
-    justifyContent: 'space-between',
+
+    justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
   },
   text: {
     fontSize: 30,
@@ -34,5 +45,10 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     width: '100%',
+  },
+  goBack: {
+    position: 'absolute',
+    left: 10,
+    bottom: 15,
   },
 });

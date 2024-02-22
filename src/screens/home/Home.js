@@ -1,13 +1,12 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import Categories from '../../components/Categories';
 import Header from '../../components/Header';
 
-export const Home = ({ selectedCategoryState }) => {
+export const Home = ({ navigation }) => {
   return (
     <>
-      <Header title='Home' />
-      <Categories selectedCategoryState={selectedCategoryState} />
+      <Categories navigation={navigation} />
     </>
   );
 };
