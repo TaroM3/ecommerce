@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { useEffect, useState } from 'react';
 import Search from '../../components/Search';
 import ProductByCategory from '../../components/ProductByCategory';
@@ -27,7 +27,7 @@ export const ProductsByCategory = ({ navigation, route }) => {
       );
   }, [categorySelected, keyword]);
   return (
-    <>
+    <View style={styles.container}>
       <Search handlerKeyword={handlerKeyword} />
       <FlatList
         data={productsFiltered}
@@ -36,8 +36,12 @@ export const ProductsByCategory = ({ navigation, route }) => {
           <ProductByCategory navigation={navigation} item={item} />
         )}
       />
-    </>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 125,
+  },
+});

@@ -1,17 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import colors from '../utils/global/colors';
 import { fonts } from '../utils/global/fonts';
 
+import { useDispatch } from 'react-redux';
+import { deleteCartItem } from '../features/cart/cartSlice';
+
 const CartItem = ({ item }) => {
+  const dispatch = useDispatch();
   return (
     <View style={styles.card}>
       <View style={styles.textContainer}>
         <Text style={styles.text}>{item.title}</Text>
+
         <Text style={styles.text2}>{item.brand}</Text>
         <Text style={styles.text2}>{item.price}</Text>
       </View>
-      <Entypo name='trash' size={30} color='white' />
+      <Text style={styles.text}>x {item.quantity}</Text>
+      <Pressable onPress={() => dispatch(deleteCartItem(item.id))}>
+        <Entypo name='trash' size={30} color='white' />
+      </Pressable>
     </View>
   );
 };

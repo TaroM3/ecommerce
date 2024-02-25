@@ -63,12 +63,12 @@ export default MainNavigator;
 const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: colors.lightBlack,
-    height: 85,
+    height: 70,
     position: 'absolute',
-    left: 20,
-    right: 20,
-    bottom: 25,
-    borderRadius: 15,
+    // left: 20,
+    // right: 20,
+    // bottom: 25,
+    // borderRadius: 15,
     elevation: 4,
     /*Shadow IOS*/
     shadowColor: '#000',

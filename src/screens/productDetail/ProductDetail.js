@@ -4,11 +4,16 @@ import { useEffect, useState } from 'react';
 import products from '../../utils/data/products.json';
 
 import colors from '../../utils/global/colors';
-import Header from '../../components/Header';
+import { useDispatch } from 'react-redux';
+
+import { addCartItem } from '../../features/cart/cartSlice';
+import Counter from '../../components/counter/Counter';
 
 export const ProductDetail = ({ route }) => {
+  const dispatch = useDispatch();
   const { productId } = route.params;
   const [product, setProduct] = useState({});
+  const [counter, setCounter] = useState(1);
 
   useEffect(() => {
     const productFinded = products.find((product) => product.id === productId);
@@ -27,9 +32,15 @@ export const ProductDetail = ({ route }) => {
           <Text style={styles.title}>{product.title}</Text>
           <Text>{product.description}</Text>
         </View>
+        <Counter counter={counter} setCounter={setCounter} />
         <View style={styles.containerPrice}>
           <Text style={styles.price}>$ {product.price}</Text>
-          <Pressable style={styles.buyNow}>
+          <Pressable
+            style={styles.buyNow}
+            onPress={() =>
+              dispatch(addCartItem({ ...product, quantity: counter }))
+            }
+          >
             <Text style={styles.buyNowText}>Buy Now</Text>
           </Pressable>
         </View>
@@ -40,13 +51,16 @@ export const ProductDetail = ({ route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
     flex: 1,
-    justifyContent: 'start',
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
   },
   content: {
     width: '100%',
+    height: '100%',
+    justifyContent: 'space-between',
+    paddingBottom: 95,
   },
 
   image: {
@@ -92,6 +106,7 @@ const styles = StyleSheet.create({
   buyNowText: {
     color: colors.light,
     padding: 7,
+    textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 20,
   },

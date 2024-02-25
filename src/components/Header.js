@@ -15,7 +15,7 @@ const Header = ({ title = 'Ecommerce', navigation }) => {
     <View style={styles.container}>
       {navigation.canGoBack() && (
         <Pressable style={styles.goBack} onPress={() => navigation.goBack()}>
-          <AntDesign name='arrowleft' size={25} color='black' />
+          <AntDesign name='arrowleft' size={30} color='black' />
         </Pressable>
       )}
       <Text style={styles.text}>{title}</Text>
