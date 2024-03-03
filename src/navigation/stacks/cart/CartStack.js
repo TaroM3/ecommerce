@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Header from '../components/Header';
-import { Cart } from '../screens';
+import Header from '../../../components/Header';
+import { Cart } from '../../../screens';
 
 const Stack = createNativeStackNavigator();
 
-const CartStack = () => {
+export const CartStack = () => {
   return (
     <Stack.Navigator
       initialRouteName='Cart'
@@ -20,5 +20,3 @@ const CartStack = () => {
     </Stack.Navigator>
   );
 };
-
-export default CartStack;

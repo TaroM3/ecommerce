@@ -1,10 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Header from '../components/Header';
-import { Home, ProductDetail, ProductsByCategory } from '../screens';
+import Header from '../../../components/Header';
+import { Home, ProductDetail, ProductsByCategory } from '../../../screens';
 
 const Stack = createNativeStackNavigator();
 
-const ShopStack = () => {
+export const ShopStack = () => {
   return (
     <Stack.Navigator
       initialRouteName='ShopStack'
@@ -33,5 +33,3 @@ const ShopStack = () => {
     </Stack.Navigator>
   );
 };
-
-export default ShopStack;

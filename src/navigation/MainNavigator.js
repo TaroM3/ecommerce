@@ -1,82 +1,16 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import colors from '../utils/global/colors';
-import { StyleSheet } from 'react-native';
-import ShopStack from './ShopStack';
-import CartStack from './CartStack';
-import OrdersStack from './OrdersStack';
-import TabBarIcon from '../components/TabBarIcon';
-
-const Tab = createBottomTabNavigator();
+import TabNavigator from './TabNavigator';
+import { useState } from 'react';
+import { AuthStack } from './stacks';
 
 const MainNavigator = () => {
+  const [tokenId, setTokenId] = useState('');
+
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName='ShopStack'
-        screenOptions={{
-          headerShown: false,
-          tabBarShowLabel: false,
-          tabBarStyle: styles.tabBar,
-        }}
-      >
-        <Tab.Screen
-          name='ShopStack'
-          component={ShopStack}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon title='Products' nameIcon='home' focused={focused} />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name='CartStack'
-          component={CartStack}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon
-                title='Cart'
-                nameIcon='shopping-cart'
-                focused={focused}
-              />
-            ),
-          }}
-        />
-
-        <Tab.Screen
-          name='OrdersStack'
-          component={OrdersStack}
-          options={{
-            tabBarIcon: ({ focused }) => (
-              <TabBarIcon title='Orders' nameIcon='list' focused={focused} />
-            ),
-          }}
-        />
-      </Tab.Navigator>
+      {tokenId ? <TabNavigator /> : <AuthStack />}
     </NavigationContainer>
   );
 };
 
 export default MainNavigator;
-
-const styles = StyleSheet.create({
-  tabBar: {
-    backgroundColor: colors.lightBlack,
-    height: 70,
-    position: 'absolute',
-    // left: 20,
-    // right: 20,
-    // bottom: 25,
-    // borderRadius: 15,
-    elevation: 4,
-    /*Shadow IOS*/
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 3,
-  },
-});
