@@ -36,7 +36,7 @@ const Search = ({ handlerKeyword }) => {
     <View>
       <View style={styles.container}>
         <TextInput
-          placeholder='Buscar'
+          placeholder='Search'
           value={input}
           onChangeText={handlerInput}
           style={styles.input}
@@ -45,7 +45,7 @@ const Search = ({ handlerKeyword }) => {
           <AntDesign name='search1' size={30} color='black' />
         </Pressable>
         <Pressable onPress={resetSearch}>
-          <AntDesign name='closecircle' size={30} color='black' />
+          <AntDesign name='close' size={30} color='black' />
         </Pressable>
       </View>
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
@@ -60,11 +60,12 @@ const styles = StyleSheet.create({
     backgroundColor: colors.light,
     flexDirection: 'row',
     padding: 10,
+    gap: 20,
     alignItems: 'center',
   },
   input: {
-    flex: 1,
-    borderWidth: 2,
+    width: '70%',
+    borderBottomWidth: 2,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,

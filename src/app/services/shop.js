@@ -9,10 +9,26 @@ export const shopApi = createApi({
     getProducts: builder.query({
       query: () => '/products.json',
     }),
+    getProductsByCategory: builder.query({
+      query: (category) =>
+        `/products.json?orderBy="category"&equalTo="${category}"`,
+      transformResponse: (response) => {
+        const data = Object.values(response);
+        return data;
+      },
+    }),
     getCategories: builder.query({
       query: () => '/categories.json',
+    }),
+    getProduct: builder.query({
+      query: (id) => `/products/${id}.json`,
     }),
   }),
 });
 
-export const { useGetProductsQuery, useGetCategoriesQuery } = shopApi;
+export const {
+  useGetProductsQuery,
+  useGetProductQuery,
+  useGetProductsByCategoryQuery,
+  useGetCategoriesQuery,
+} = shopApi;

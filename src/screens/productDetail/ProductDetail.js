@@ -1,7 +1,14 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
 
-import { useEffect, useState } from 'react';
-import products from '../../utils/data/products.json';
+import { useState } from 'react';
+import { useGetProductQuery } from '../../app/services/shop';
 
 import colors from '../../utils/global/colors';
 import { useDispatch } from 'react-redux';
@@ -12,13 +19,16 @@ import Counter from '../../components/counter/Counter';
 export const ProductDetail = ({ route }) => {
   const dispatch = useDispatch();
   const { productId } = route.params;
-  const [product, setProduct] = useState({});
+  const { data: product, isLoading } = useGetProductQuery(productId);
   const [counter, setCounter] = useState(1);
 
-  useEffect(() => {
-    const productFinded = products.find((product) => product.id === productId);
-    setProduct(productFinded);
-  }, [productId]);
+  console.log(productId);
+  if (isLoading)
+    return (
+      <View style={styles.loader}>
+        <ActivityIndicator size='large' color={colors.lightBlack} />
+      </View>
+    );
 
   return (
     <View style={styles.container}>
@@ -29,12 +39,12 @@ export const ProductDetail = ({ route }) => {
           resizeMode='cover'
         />
         <View style={styles.containerText}>
-          <Text style={styles.title}>{product.title}</Text>
-          <Text>{product.description}</Text>
+          <Text style={styles.title}>{product?.title}</Text>
+          <Text>{product?.description}</Text>
         </View>
         <Counter counter={counter} setCounter={setCounter} />
         <View style={styles.containerPrice}>
-          <Text style={styles.price}>$ {product.price}</Text>
+          <Text style={styles.price}>$ {product?.price}</Text>
           <Pressable
             style={styles.buyNow}
             onPress={() =>
@@ -62,7 +72,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 95,
   },
-
   image: {
     width: '100%',
     height: 300,
@@ -109,5 +118,10 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 20,
+  },
+  loader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

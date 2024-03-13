@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import colors from '../utils/global/colors';
-import { CartStack, OrdersStack, ShopStack } from './stacks';
+import { CartStack, OrdersStack, ProfileStack, ShopStack } from './stacks';
 import TabBarIcon from '../components/TabBarIcon';
 
 export default function TabNavigator() {
@@ -47,6 +47,16 @@ export default function TabNavigator() {
         options={{
           tabBarIcon: ({ focused }) => (
             <TabBarIcon title='Orders' nameIcon='list' focused={focused} />
+          ),
+        }}
+      />
+
+      <Tab.Screen
+        name='ProfileStack'
+        component={ProfileStack}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon title='Profile' nameIcon='user' focused={focused} />
           ),
         }}
       />

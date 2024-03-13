@@ -5,3 +5,6 @@ export * from './cart/Cart';
 export * from './orders/Orders';
 export * from './login/Login';
 export * from './register/Register';
+export * from './imageSelector/ImageSelector';
+export * from './locationSelector/LocationSelector';
+export * from './profile/Profile';

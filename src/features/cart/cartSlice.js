@@ -35,6 +35,9 @@ const cartSlice = createSlice({
       state.items = state.items.filter((item) => item.id !== actions.payload);
       state.total = state.items.reduce((acc, item) => (acc += item.price), 0);
     },
+    deleteCart: (state) => {
+      (state.total = 0), (state.items = []);
+    },
   },
 });
 

@@ -10,7 +10,7 @@ const TabBarIcon = ({ title, nameIcon, focused }) => {
         size={25}
         color={focused ? colors.white : colors.light}
       />
-      <Text style={[styles.text, !focused && styles.textFocused]}>{title}</Text>
+      <Text style={[styles.text, focused && styles.textFocused]}>{title}</Text>
     </View>
   );
 };
