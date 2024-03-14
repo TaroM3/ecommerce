@@ -1,11 +1,10 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import colors from '../../utils/global/colors';
 import { fonts } from '../../utils/global/fonts';
-// import cart from '../../utils/data/cart.json';
 import CartItem from '../../components/CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { usePostOrderMutation } from '../../app/services/orders';
-import { deleteCartItem } from '../../features/cart/cartSlice';
+import { deleteCart } from '../../features/cart/cartSlice';
 
 export const Cart = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -27,17 +26,25 @@ export const Cart = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={cart.items}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <CartItem item={item} />}
-      />
-      <View style={styles.confirmContainer}>
-        <Pressable style={styles.confirmButton} onPress={handlerAddOrder}>
-          <Text style={styles.textButton}>Confirm</Text>
-        </Pressable>
-        <Text style={styles.confirmText}>Total: ${cart.total}</Text>
-      </View>
+      {cart.items[0] ? (
+        <>
+          <FlatList
+            data={cart.items}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => <CartItem item={item} />}
+          />
+          <View style={styles.confirmContainer}>
+            <Pressable style={styles.confirmButton} onPress={handlerAddOrder}>
+              <Text style={styles.textButton}>Confirm</Text>
+            </Pressable>
+            <Text style={styles.confirmText}>Total: ${cart.total}</Text>
+          </View>
+        </>
+      ) : (
+        <View style={styles.cartEmptyContainer}>
+          <Text style={styles.cartEmptyText}>Your cart is empty.</Text>
+        </View>
+      )}
     </View>
   );
 };
@@ -69,5 +76,14 @@ const styles = StyleSheet.create({
     backgroundColor: colors.lightBlack,
     borderRadius: 10,
     padding: 10,
+  },
+  cartEmptyContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cartEmptyText: {
+    fontSize: 20,
   },
 });

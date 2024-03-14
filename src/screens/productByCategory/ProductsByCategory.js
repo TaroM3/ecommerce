@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Search from '../../components/Search';
 import ProductByCategory from '../../components/ProductByCategory';
 import { useGetProductsByCategoryQuery } from '../../app/services/shop';
+import Loader from '../../components/Loader';
 
 export const ProductsByCategory = ({ navigation, route }) => {
   const { categorySelected } = route.params;
@@ -33,12 +34,7 @@ export const ProductsByCategory = ({ navigation, route }) => {
       );
   }, [categorySelected, keyword, products]);
 
-  if (isLoading)
-    return (
-      <View>
-        <Text>cargando...</Text>
-      </View>
-    );
+  if (isLoading) return <Loader />;
 
   return (
     <View style={styles.container}>

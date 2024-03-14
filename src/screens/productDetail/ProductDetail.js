@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Pressable,
-  ActivityIndicator,
-} from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
 import { useState } from 'react';
 import { useGetProductQuery } from '../../app/services/shop';
@@ -15,6 +8,7 @@ import { useDispatch } from 'react-redux';
 
 import { addCartItem } from '../../features/cart/cartSlice';
 import Counter from '../../components/counter/Counter';
+import Loader from '../../components/Loader';
 
 export const ProductDetail = ({ route }) => {
   const dispatch = useDispatch();
@@ -23,12 +17,7 @@ export const ProductDetail = ({ route }) => {
   const [counter, setCounter] = useState(1);
 
   console.log(productId);
-  if (isLoading)
-    return (
-      <View style={styles.loader}>
-        <ActivityIndicator size='large' color={colors.lightBlack} />
-      </View>
-    );
+  if (isLoading) return <Loader />;
 
   return (
     <View style={styles.container}>
@@ -118,10 +107,5 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 20,
-  },
-  loader: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

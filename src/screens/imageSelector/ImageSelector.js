@@ -43,7 +43,7 @@ export const ImageSelector = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={image ? { url: image } : require('../../../assets/user.png')}
+        source={image ? { uri: image } : require('../../../assets/user.png')}
         style={styles.image}
         resizeMode='cover'
       />

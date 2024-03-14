@@ -34,7 +34,7 @@ export default function TabNavigator() {
           tabBarIcon: ({ focused }) => (
             <TabBarIcon
               title='Cart'
-              nameIcon='shopping-cart'
+              nameIcon='shoppingcart'
               focused={focused}
             />
           ),
@@ -46,7 +46,7 @@ export default function TabNavigator() {
         component={OrdersStack}
         options={{
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon title='Orders' nameIcon='list' focused={focused} />
+            <TabBarIcon title='Orders' nameIcon='bars' focused={focused} />
           ),
         }}
       />

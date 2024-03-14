@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Feather } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import colors from '../utils/global/colors';
 import { fonts } from '../utils/global/fonts';
 
@@ -10,7 +10,7 @@ const OrderItem = ({ order }) => {
         <Text style={styles.text}>{order.createdAt}</Text>
         <Text style={styles.text2}>$ {order.total}</Text>
       </View>
-      <Feather name='search' size={30} color='white' />
+      <AntDesign name='ellipsis1' size={30} color='white' />
     </View>
   );
 };

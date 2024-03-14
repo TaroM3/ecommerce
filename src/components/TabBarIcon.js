@@ -1,11 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import colors from '../utils/global/colors';
 
 const TabBarIcon = ({ title, nameIcon, focused }) => {
   return (
     <View style={styles.container}>
-      <Entypo
+      <AntDesign
         name={nameIcon}
         size={25}
         color={focused ? colors.white : colors.light}

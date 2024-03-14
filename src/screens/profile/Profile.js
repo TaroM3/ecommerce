@@ -23,25 +23,27 @@ export const Profile = ({ navigation }) => {
 
       <Text style={styles.text}>{locationFormatted?.address}</Text>
 
-      <AddButton
-        title={'Add profile image'}
-        onPress={() => navigation.navigate('ImageSelector')}
-      />
-      <AddButton
-        title={'Add address'}
-        onPress={() => navigation.navigate('LocationSelector')}
-      />
+      <View style={styles.buttonContainer}>
+        <AddButton
+          title={'Add profile image'}
+          onPress={() => navigation.navigate('ImageSelector')}
+        />
+        <AddButton
+          title={'Add address'}
+          onPress={() => navigation.navigate('LocationSelector')}
+        />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     width: '100%',
     height: '100%',
     alignItems: 'center',
     marginTop: 20,
+    gap: 35,
   },
   image: {
     width: 200,
@@ -50,6 +52,14 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
+    marginHorizontal: 20,
     marginVertical: 10,
+  },
+  buttonContainer: {
+    width: '100%',
+
+    gap: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -20,9 +20,8 @@ export const Login = ({ navigation }) => {
   const onSubmit = async () => {
     try {
       loginSchema.validateSync({ email, password });
-      console.log('entro a fn');
+
       const { data } = await triggerLogin({ email, password });
-      console.log(data);
       dispatch(
         setUser({
           email: data.email,
@@ -30,7 +29,6 @@ export const Login = ({ navigation }) => {
           localId: data.localId,
         })
       );
-      console.log('ACCESS');
     } catch (error) {
       setErrorEmail('');
       setErrorPassword('');
@@ -45,6 +43,8 @@ export const Login = ({ navigation }) => {
           break;
 
         default:
+          setErrorEmail('Email incorrect.');
+          setErrorPassword('Password incorrect.');
           break;
       }
     }
