@@ -7,7 +7,7 @@ import Loader from '../../components/Loader';
 
 export const ProductsByCategory = ({ navigation, route }) => {
   const { categorySelected } = route.params;
-  console.log(categorySelected);
+
   const {
     data: products,
     isError,
@@ -18,7 +18,6 @@ export const ProductsByCategory = ({ navigation, route }) => {
   const [productsFiltered, setProductsFiltered] = useState([]);
   const [keyword, setKeyword] = useState('');
 
-  console.log(products);
   const handlerKeyword = (k) => {
     setKeyword(k);
   };

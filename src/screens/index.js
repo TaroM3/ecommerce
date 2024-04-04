@@ -8,3 +8,4 @@ export * from './register/Register';
 export * from './imageSelector/ImageSelector';
 export * from './locationSelector/LocationSelector';
 export * from './profile/Profile';
+export * from './payment/Payment';

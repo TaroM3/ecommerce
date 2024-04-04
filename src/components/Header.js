@@ -9,8 +9,19 @@ import {
 import colors from '../utils/global/colors';
 
 import { AntDesign } from '@expo/vector-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../features/auth/authSlice';
+import { deleteSession } from '../utils/db';
 
 const Header = ({ title = 'Ecommerce', navigation }) => {
+  const dispatch = useDispatch();
+  const idToken = useSelector((state) => state.auth.idToken);
+
+  const onLogout = () => {
+    dispatch(clearUser());
+    deleteSession();
+  };
+
   return (
     <View style={styles.container}>
       {navigation.canGoBack() && (
@@ -19,6 +30,11 @@ const Header = ({ title = 'Ecommerce', navigation }) => {
         </Pressable>
       )}
       <Text style={styles.text}>{title}</Text>
+      {idToken && (
+        <Pressable style={styles.logoutIcon} onPress={onLogout}>
+          <AntDesign name='logout' size={30} color='black' />
+        </Pressable>
+      )}
     </View>
   );
 };
@@ -49,6 +65,11 @@ const styles = StyleSheet.create({
   goBack: {
     position: 'absolute',
     left: 10,
+    bottom: 15,
+  },
+  logoutIcon: {
+    position: 'absolute',
+    right: 21,
     bottom: 15,
   },
 });

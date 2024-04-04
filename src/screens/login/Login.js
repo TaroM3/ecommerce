@@ -8,6 +8,8 @@ import colors from '../../utils/global/colors';
 import { fonts } from '../../utils/global/fonts';
 import SubmitButton from '../../components/SubmitButton';
 import { setUser } from '../../features/auth/authSlice';
+import { ModalMessage } from '../../components/ModalMessage';
+import { deleteSession, insertSession } from '../../utils/db';
 
 export const Login = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -16,12 +18,26 @@ export const Login = ({ navigation }) => {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [triggerLogin] = useLoginMutation();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handlerCloseModal = () => {
+    setModalVisible(false);
+  };
 
   const onSubmit = async () => {
     try {
       loginSchema.validateSync({ email, password });
 
-      const { data } = await triggerLogin({ email, password });
+      const { data, error } = await triggerLogin({ email, password }).catch(
+        (res) => console.log(res)
+      );
+
+      if (error) {
+        setModalVisible(true);
+      }
+      deleteSession();
+      insertSession({ ...data });
+
       dispatch(
         setUser({
           email: data.email,
@@ -43,37 +59,43 @@ export const Login = ({ navigation }) => {
           break;
 
         default:
-          setErrorEmail('Email incorrect.');
-          setErrorPassword('Password incorrect.');
           break;
       }
     }
   };
 
   return (
-    <View style={styles.main}>
-      <View style={styles.container}>
-        <InputForm
-          label='Email'
-          value={email}
-          onChangeText={(t) => setEmail(t)}
-          isSecure={false}
-          error={errorEmail}
-        />
-        <InputForm
-          label='Password'
-          value={password}
-          onChangeText={(t) => setPassword(t)}
-          isSecure={true}
-          error={errorPassword}
-        />
-        <SubmitButton onPress={onSubmit} title='Login' />
-        <Text style={styles.sub}>Don't you have an account?</Text>
-        <Pressable onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.subLink}>Sign up</Text>
-        </Pressable>
+    <>
+      <View style={styles.main}>
+        <View style={styles.container}>
+          <InputForm
+            label='Email'
+            value={email}
+            onChangeText={(t) => setEmail(t)}
+            isSecure={false}
+            error={errorEmail}
+          />
+          <InputForm
+            label='Password'
+            value={password}
+            onChangeText={(t) => setPassword(t)}
+            isSecure={true}
+            error={errorPassword}
+          />
+          <SubmitButton onPress={onSubmit} title='Login' />
+          <Text style={styles.sub}>Don't you have an account?</Text>
+          <Pressable onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.subLink}>Sign up</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+      <ModalMessage
+        textButton='Retry'
+        title='Email or password is incorrect.'
+        modalVisible={modalVisible}
+        onClose={handlerCloseModal}
+      />
+    </>
   );
 };
 

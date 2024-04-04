@@ -6,9 +6,14 @@ import colors from '../utils/global/colors';
 const CardCategory = ({ item, navigation }) => {
   return (
     <Pressable
-      onPress={() =>navigation.navigate("ProductsByCategory", { categorySelected: item })}>
+      onPress={() =>
+        navigation.navigate('ProductsByCategory', {
+          categorySelected: item.title,
+        })
+      }
+    >
       <ShadowPrimary style={styles.container}>
-        <Text style={styles.text}>{item}</Text>
+        <Text style={styles.text}>{item.title}</Text>
       </ShadowPrimary>
     </Pressable>
   );

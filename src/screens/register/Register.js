@@ -8,6 +8,8 @@ import { fonts } from '../../utils/global/fonts';
 import colors from '../../utils/global/colors';
 import InputForm from '../../components/inputForm/InputForm';
 import SubmitButton from '../../components/SubmitButton';
+import { ModalMessage } from '../../components/ModalMessage';
+import { deleteSession, insertSession } from '../../utils/db';
 
 export const Register = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -18,23 +20,32 @@ export const Register = ({ navigation }) => {
   const [errorPassword, setErrorPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
   const [triggerRegister] = useRegisterMutation();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const handlerClose = () => {
+    setIsModalVisible(false);
+  };
 
   const onSubmit = async () => {
     try {
       registerSchema.validateSync({ email, password, confirmPassword });
-      const { data } = await triggerRegister({ email, password });
+      const { data, error } = await triggerRegister({ email, password });
 
-      dispatch(
-        setUser({
-          email: data.email,
-          idToken: data.idToken,
-          localId: data.localId,
-        })
-      );
+      if (error) {
+        setIsModalVisible(true);
+      } else {
+        deleteSession();
+        insertSession(data);
 
-      navigation.goBack();
+        dispatch(
+          setUser({
+            email: data.email,
+            idToken: data.idToken,
+            localId: data.localId,
+          })
+        );
+      }
     } catch (error) {
-      console.log(error);
       setErrorEmail('');
       setErrorPassword('');
       setErrorConfirmPassword('');
@@ -59,36 +70,44 @@ export const Register = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.main}>
-      <View style={styles.container}>
-        <InputForm
-          label='Email'
-          value={email}
-          onChangeText={(t) => setEmail(t)}
-          isSecure={false}
-          error={errorEmail}
-        />
-        <InputForm
-          label='Password'
-          value={password}
-          onChangeText={(t) => setPassword(t)}
-          isSecure={true}
-          error={errorPassword}
-        />
-        <InputForm
-          label='Confirm Password'
-          value={confirmPassword}
-          onChangeText={(t) => setConfirmPassword(t)}
-          isSecure={true}
-          error={errorConfirmPassword}
-        />
-        <SubmitButton onPress={onSubmit} title='Sign Up' />
-        <Text style={styles.sub}>Already have an account?</Text>
-        <Pressable onPress={() => navigation.navigate('Login')}>
-          <Text style={styles.subLink}>Sign in</Text>
-        </Pressable>
+    <>
+      <View style={styles.main}>
+        <View style={styles.container}>
+          <InputForm
+            label='Email'
+            value={email}
+            onChangeText={(t) => setEmail(t)}
+            isSecure={false}
+            error={errorEmail}
+          />
+          <InputForm
+            label='Password'
+            value={password}
+            onChangeText={(t) => setPassword(t)}
+            isSecure={true}
+            error={errorPassword}
+          />
+          <InputForm
+            label='Confirm Password'
+            value={confirmPassword}
+            onChangeText={(t) => setConfirmPassword(t)}
+            isSecure={true}
+            error={errorConfirmPassword}
+          />
+          <SubmitButton onPress={onSubmit} title='Sign Up' />
+          <Text style={styles.sub}>Already have an account?</Text>
+          <Pressable onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.subLink}>Sign in</Text>
+          </Pressable>
+        </View>
       </View>
-    </View>
+      <ModalMessage
+        textButton='Retry'
+        title='Email is already registered.'
+        modalVisible={isModalVisible}
+        onClose={handlerClose}
+      />
+    </>
   );
 };
 

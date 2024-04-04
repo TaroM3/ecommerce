@@ -1,22 +1,18 @@
 [
-    "smartphones",
-    "laptops",
-    "fragrances",
-    "skincare",
-    "groceries",
-    "home-decoration",
-    "furniture",
-    "tops",
-    "womens-dresses",
-    "womens-shoes",
-    "mens-shirts",
-    "mens-shoes",
-    "mens-watches",
-    "womens-watches",
-    "womens-bags",
-    "womens-jewellery",
-    "sunglasses",
-    "automotive",
-    "motorcycle",
-    "lighting"
-  ]
+  {
+    "title": "computer processor",
+    "image": "https://res.cloudinary.com/didni0nof/image/upload/v1711185423/react%20native/cpu_o6ayhk.jpg"
+  },
+  {
+    "title": "RAM",
+    "image": "https://res.cloudinary.com/didni0nof/image/upload/v1711184219/react%20native/rams_gtanst.jpg"
+  },
+  {
+    "title": "motherboard",
+    "image": "https://res.cloudinary.com/didni0nof/image/upload/v1711183927/react%20native/motherboard_ctgrql.jpg"
+  },
+  {
+    "title": "GPU",
+    "image": "https://res.cloudinary.com/didni0nof/image/upload/v1711185533/react%20native/gpu_porpht.jpg"
+  }
+]

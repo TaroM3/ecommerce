@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Entypo } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import colors from '../utils/global/colors';
 import { fonts } from '../utils/global/fonts';
 
@@ -18,7 +18,7 @@ const CartItem = ({ item }) => {
       </View>
       <Text style={styles.text}>x {item.quantity}</Text>
       <Pressable onPress={() => dispatch(deleteCartItem(item.id))}>
-        <Entypo name='trash' size={30} color='white' />
+        <AntDesign name='delete' size={27} color='white' />
       </Pressable>
     </View>
   );

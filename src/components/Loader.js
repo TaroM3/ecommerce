@@ -5,7 +5,7 @@ import colors from '../utils/global/colors';
 const Loader = () => {
   return (
     <View style={styles.loader}>
-      <ActivityIndicator size='large' color={colors.lightBlack} />
+      <ActivityIndicator size={60} color={colors.lightBlack} />
     </View>
   );
 };
